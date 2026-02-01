@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { mongoose, Schema } from "mongoose";
 
 export const genderEnum = {
 	male: "male",
@@ -51,4 +51,4 @@ const userSchema = new Schema( {
 	confirmEmail: Date,
 }, { timestamps: true } );
 
-export const userModel = mongoose.models.User || mongoose.model("User", userSchema);
+export const UserModel = mongoose.models.User || mongoose.model("User", userSchema);
