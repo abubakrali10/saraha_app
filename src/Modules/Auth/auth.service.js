@@ -6,7 +6,7 @@ export const signup = asyncHandler(async (req, res, next) => {
 
 	const user = await UserModel.findOne({ email });
 
-	if (user) return res.status(409).json({ message: "User already exists!" });
+	if (user) return next(new Error("User already exists!"), { cause: 409});
 
 	const newUser = await UserModel.create({ firstName, lastName, email, password, gender, phoneNumber });
 
@@ -17,8 +17,8 @@ export const login = asyncHandler(async (req, res, next) => {
 	const { email, password } = req.body;
 
 	const user = await UserModel.findOne({ email, password });
-
-	if (!user) return res.status(404).json({ message: "User not found!" });
+	user = 10;
+	if (!user) return next(new Error("User not found!", { cause: 404 }));
 
 	return res.status(200).json({ message: "User logged in successfuly!", user });
 
