@@ -15,6 +15,15 @@ const bootstrap = async (app, express) => {
 	app.all("/*dummy", (req, res) => {
 		return res.status(404).json({ message: "Not found" });
 	});
+
+	app.use((err, req, res, next) => {
+		const status = err.cause || 500;
+		return res.status(status).json({
+			message: "Something went wrong!",
+			error: err.message,
+			stack: err.stack,
+		});
+	})
 }
 
 export default bootstrap;
